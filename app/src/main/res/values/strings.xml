@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Socializer</string>
+    <string name="not_registered">Not Registered Yet , Sign Up !</string>
+    <string name="log_in">Log In</string>
+    <string name="type_pass">Type Your Password</string>
+    <string name="type_your_email">Type your Email</string>
+    <string name="retype_your_password">Retype Your Password</string>
+    <string name="register">Register</string>
+    <string name="already_registered">Already Registered , Sign In !</string>
+    <string name="log_out">Log Out</string>
 </resources>
