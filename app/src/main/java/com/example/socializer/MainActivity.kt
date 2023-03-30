@@ -6,11 +6,21 @@ import android.os.Bundle
 import com.example.socializer.databinding.ActivityLogInBinding
 import com.example.socializer.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.socializer.databinding.ActivityLogInBinding
+import com.example.socializer.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var navController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,5 +34,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LogInActivity::class.java)
             startActivity(intent);
         }
+        
+        val navContainerFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as  NavHostFragment
+        navController = navContainerFragment.navController
+
+        val bottomNavView = findViewById<BottomNavigationView>(R.id.bottomNavView)
+
+        setupWithNavController(bottomNavView, navController)
     }
 }
