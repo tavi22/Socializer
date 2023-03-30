@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1048274489207",
+    "project_id": "socializer-22b8f",
+    "storage_bucket": "socializer-22b8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048274489207:android:6b86497374c8f3fc035b72",
+        "android_client_info": {
+          "package_name": "com.example.socializer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1048274489207-4vjuqf8h7a5mfjuu830fctg79qtvhib5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR9LVmP7icxV3bvE9Pe3ie_LCgpX2WAi4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1048274489207-4vjuqf8h7a5mfjuu830fctg79qtvhib5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
