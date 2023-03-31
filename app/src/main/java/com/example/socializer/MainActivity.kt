@@ -26,12 +26,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
 
-        binding.button.setOnClickListener {
-            firebaseAuth.signOut()
-            val intent = Intent(this, LogInActivity::class.java)
-            startActivity(intent);
-        }
-        
+        // LOGOUT - add to top bar
+//        binding.button.setOnClickListener {
+//            firebaseAuth.signOut()
+//            val intent = Intent(this, LogInActivity::class.java)
+//            startActivity(intent);
+//        }
+
+        // Set up Top Bar
+
+//        setSupportActionBar(binding.topBar)
+
+        // Set up Bottom Nav
         val navContainerFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as  NavHostFragment
         navController = navContainerFragment.navController
 
