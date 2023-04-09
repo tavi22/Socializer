@@ -8,4 +8,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
     <color name="yellow">#FFEB3B</color>
+    <color name="grey">#7A7979</color>
+    <color name="red_theme">#ec4c4c</color>
+
+    <color name="theme">#23EAFB</color>
+
+    <color name="light_theme">#B8FFCA</color>
+    <color name="text_theme">#467E4B</color>
+
+    <color name="bottom_selected">#003528</color>
+
 </resources>

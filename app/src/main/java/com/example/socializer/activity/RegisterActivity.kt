@@ -1,10 +1,9 @@
-package com.example.socializer
+package com.example.socializer.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.socializer.databinding.ActivityLogInBinding
 import com.example.socializer.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 
