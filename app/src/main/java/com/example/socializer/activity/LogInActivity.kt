@@ -1,4 +1,4 @@
-package com.example.socializer
+package com.example.socializer.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

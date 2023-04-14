@@ -4,21 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:navGraph="@navigation/bottom_nav_graph" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:background="@color/yellow"
-        android:text="@string/log_out"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:background="@color/light_theme"
+        app:itemIconTint="@drawable/bottom_nav_selected_colors"
+        app:itemTextColor="@drawable/bottom_nav_selected_colors"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:menu="@menu/bottom_navigation" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/light_theme"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/baseline_menu_icon"
+            app:itemIconTint="@drawable/bottom_nav_selected_colors"
+            app:itemTextColor="@drawable/bottom_nav_selected_colors"
+            app:title="@string/app_name"
+            app:menu="@menu/top_bar_navigation"
+            app:titleTextColor="@color/grey" >
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

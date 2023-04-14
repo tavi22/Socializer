@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/baseline_home_icon"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/exploreFragment"
+        android:icon="@drawable/baseline_explore_icon"
+        android:title="@string/explore" />
+    <item
+        android:id="@+id/chatsFragment"
+        android:icon="@drawable/baseline_chat_icon"
+        android:title="@string/chat" />
+    <item
+        android:id="@+id/notificationsFragment"
+        android:icon="@drawable/baseline_inbox_icon"
+        android:title="@string/notifications" />
+</menu>
