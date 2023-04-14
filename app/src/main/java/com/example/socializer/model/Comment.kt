@@ -1,4 +1,6 @@
 package com.example.socializer.model
 
-class Comment {
-}
+data class Comment (var id : String,
+                    var text : String,
+                    var owner : String,
+                    var post : String)

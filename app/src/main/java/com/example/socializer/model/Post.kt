@@ -1,4 +1,7 @@
 package com.example.socializer.model
 
-class Post {
-}
+data class Post (var id : String,
+                 var title : String,
+                 var description : String,
+                 var owner : String,
+                 var forum : String)

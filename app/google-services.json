@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1048274489207",
+    "firebase_url": "https://socializer-22b8f-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "socializer-22b8f",
     "storage_bucket": "socializer-22b8f.appspot.com"
   },
@@ -14,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "1048274489207-4vjuqf8h7a5mfjuu830fctg79qtvhib5.apps.googleusercontent.com",
+          "client_id": "1048274489207-7rq2ts55e64f5ikftrp1vp76eigupc7p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.socializer",
+            "certificate_hash": "de7d20987cc10aa2c154543e580143339a8512f4"
+          }
+        },
+        {
+          "client_id": "1048274489207-0pj8p0tglt64vdp1t4hub8ftohnbt2cm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1048274489207-4vjuqf8h7a5mfjuu830fctg79qtvhib5.apps.googleusercontent.com",
+              "client_id": "1048274489207-0pj8p0tglt64vdp1t4hub8ftohnbt2cm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
