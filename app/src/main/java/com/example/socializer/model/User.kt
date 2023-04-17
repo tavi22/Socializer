@@ -1,8 +1,10 @@
 package com.example.socializer.model
 
-data class User (var id : String,
-                 var username : String,
-                 var email : String,
-                 var description : String,
-                 var imageurl : String,
-                 var status : Boolean)
+import android.net.Uri
+
+data class User (var id : String? = null,
+                 var username : String? = null,
+                 var email : String? = null,
+                 var description : String? = null,
+                 var imageuri : Uri? = null,
+                 var status : Boolean? = null)

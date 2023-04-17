@@ -15,12 +15,17 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.socializer.helpers.DbHelper
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class LogInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLogInBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var helper: DbHelper
+    private lateinit var storageReference: StorageReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +100,8 @@ class LogInActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken , null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful){
+                helper.uploadProfilePicture(account.photoUrl, account.email)
+                helper.saveNewAccount(account.email, account.displayName, account.photoUrl)
                 login()
             }else{
                 Toast.makeText(this, it.exception.toString() , Toast.LENGTH_SHORT).show()
