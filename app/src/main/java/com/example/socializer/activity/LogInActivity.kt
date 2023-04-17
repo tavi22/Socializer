@@ -1,5 +1,6 @@
 package com.example.socializer.activity
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,16 +11,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import androidx.activity.result.contract.ActivityResultContracts
 
 class LogInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLogInBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var googleSignInOptions: GoogleSignInOptions
     private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,57 +54,55 @@ class LogInActivity : AppCompatActivity() {
         }
 
         // log in with google
-        googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
-        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
-
-        val account : GoogleSignInAccount?= GoogleSignIn.getLastSignedInAccount(this)
-
-        if (account != null) {
-            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-            firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    login()
-                } else {
-                    Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+        googleSignInClient = GoogleSignIn.getClient(this , gso)
 
         binding.googleText.setOnClickListener {
-            val signInIntent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, 1000)
+            signInGoogle()
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun signInGoogle(){
+        val signInIntent = googleSignInClient.signInIntent
+        launcher.launch(signInIntent)
+    }
 
-        if (firebaseAuth.currentUser != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            result ->
+        if (result.resultCode == Activity.RESULT_OK){
+
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            handleResults(task)
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun handleResults(task: Task<GoogleSignInAccount>) {
+        if (task.isSuccessful){
+            val account : GoogleSignInAccount? = task.result
+            if (account != null){
+                updateUI(account)
+            }
+        }else{
+            Toast.makeText(this, task.exception.toString() , Toast.LENGTH_SHORT).show()
+        }
+    }
 
-        if (requestCode == 1000) {
-            val task : Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-
-            try {
-
-                task.getResult(ApiException::class.java)
+    private fun updateUI(account: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(account.idToken , null)
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
+            if (it.isSuccessful){
                 login()
+            }else{
+                Toast.makeText(this, it.exception.toString() , Toast.LENGTH_SHORT).show()
 
-            } catch (e:java.lang.Exception) {
-                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 
     private fun login() {
         val intent = Intent(this, MainActivity::class.java)
