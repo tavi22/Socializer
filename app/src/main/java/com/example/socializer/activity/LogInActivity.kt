@@ -15,8 +15,8 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.socializer.helpers.DbHelper
-import com.google.firebase.storage.FirebaseStorage
+import com.example.socializer.helpers.saveNewAccount
+import com.example.socializer.helpers.uploadProfilePicture
 import com.google.firebase.storage.StorageReference
 
 class LogInActivity : AppCompatActivity() {
@@ -24,7 +24,6 @@ class LogInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLogInBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var helper: DbHelper
     private lateinit var storageReference: StorageReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +42,7 @@ class LogInActivity : AppCompatActivity() {
         // log in with email and password
         binding.button.setOnClickListener {
             val email = binding.emailEt.text.toString()
-            val pass = binding.passET.text.toString()
+            val pass = binding.passEt.text.toString()
 
             if (email.isNotEmpty() && pass.isNotEmpty()) {
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
@@ -100,8 +99,8 @@ class LogInActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken , null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful){
-                helper.uploadProfilePicture(account.photoUrl, account.email)
-                helper.saveNewAccount(account.email, account.displayName, account.photoUrl)
+                uploadProfilePicture(account.photoUrl, account.email, this)
+                saveNewAccount(account.email, account.displayName, account.photoUrl, this)
                 login()
             }else{
                 Toast.makeText(this, it.exception.toString() , Toast.LENGTH_SHORT).show()
