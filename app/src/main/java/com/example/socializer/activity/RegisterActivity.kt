@@ -21,7 +21,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance()
 
         binding.textView.setOnClickListener {
             val intent = Intent(this, LogInActivity::class.java)
@@ -38,7 +38,7 @@ class RegisterActivity : AppCompatActivity() {
                     firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
 
-                            saveNewAccount(email, username, DEFAULT_PROFILE_IMAGE.toUri(), this)
+                            saveNewAccount(email, username, DEFAULT_PROFILE_IMAGE, this)
                             val intent = Intent(this, LogInActivity::class.java)
                             startActivity(intent);
                         } else {

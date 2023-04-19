@@ -7,27 +7,21 @@ import com.example.socializer.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
 
-private lateinit var dbRef : DatabaseReference
+private lateinit var database : DatabaseReference
 private lateinit var storageRef : StorageReference
 
-fun saveNewAccount(email : String?, username : String?, imageUri: Uri?, ctx: Context) {
-    dbRef = FirebaseDatabase.getInstance().getReference("users")
+fun saveNewAccount(email : String?, username : String?, imageUri: String?, ctx: Context) {
     val userId =  FirebaseAuth.getInstance().currentUser!!.uid
-    val newUser = User(userId, username, email, "New to Socializer", imageUri, false)
+    val newUser = User(username, email, "New to Socializer", imageUri, false)
+    database = Firebase.database.reference
 
-    dbRef.child(userId).setValue(newUser).addOnCompleteListener {
-        if (it.isSuccessful) {
-            Toast.makeText(ctx, "Account created successfully", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(ctx, it.exception?.message, Toast.LENGTH_SHORT).show()
-        }
-    }.addOnFailureListener {
-        Toast.makeText(ctx, it.message.toString(), Toast.LENGTH_SHORT).show()
-    }
+    database.child("users").child(userId).setValue(newUser)
 }
 
 fun saveNewPost() {}

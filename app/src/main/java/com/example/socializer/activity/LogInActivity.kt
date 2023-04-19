@@ -99,8 +99,7 @@ class LogInActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken , null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful){
-                uploadProfilePicture(account.photoUrl, account.email, this)
-                saveNewAccount(account.email, account.displayName, account.photoUrl, this)
+                saveNewAccount(account.email, account.displayName, account.photoUrl.toString(), this)
                 login()
             }else{
                 Toast.makeText(this, it.exception.toString() , Toast.LENGTH_SHORT).show()
