@@ -13,6 +13,8 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.socializer.R
 import com.example.socializer.databinding.ActivityMainBinding
 import com.example.socializer.fragments.ProfileFragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -63,9 +65,16 @@ class MainActivity : AppCompatActivity() {
             R.id.profile -> replaceFragment(ProfileFragment())
 
             R.id.logout -> {
+                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build()
+
+                val googlesigninclient = GoogleSignIn.getClient(this,gso)
+                googlesigninclient.signOut()
                 firebaseAuth.signOut()
                 val intent = Intent(this, LogInActivity::class.java)
-                startActivity(intent);
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)

@@ -1,8 +1,11 @@
 package com.example.socializer.model
 
-data class User (var id : String,
-                 var username : String,
-                 var email : String,
-                 var description : String,
-                 var imageurl : String,
-                 var status : Boolean)
+import android.net.Uri
+import com.google.firebase.database.IgnoreExtraProperties
+
+@IgnoreExtraProperties
+data class User (var username : String? = null,
+                 var email : String? = null,
+                 var description : String? = null,
+                 var imageuri : String? = null,
+                 var status : Boolean? = null)
