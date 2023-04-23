@@ -33,6 +33,10 @@ class LogInActivity : AppCompatActivity() {
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
 
+        if (firebaseAuth.currentUser != null) {
+            login()
+        }
+
         // register
         binding.textView.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
