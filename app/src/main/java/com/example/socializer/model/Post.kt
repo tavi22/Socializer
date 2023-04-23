@@ -8,6 +8,6 @@ data class Post (var id : String,
                  var description : String,
                  var imageUri : String? = null,
                  var videoUri: String? = null,
-                 var owner : String,
+                 var owner : User,
                  var forum : Forum,
                  var creationDate : Calendar? = Calendar.getInstance())

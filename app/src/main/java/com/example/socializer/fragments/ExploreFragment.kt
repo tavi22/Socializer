@@ -15,6 +15,7 @@ import com.example.socializer.adapter.PostFeedAdapter
 import com.example.socializer.adapter.PostForumAdapter
 import com.example.socializer.model.Forum
 import com.example.socializer.model.Post
+import com.example.socializer.model.User
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -95,10 +96,11 @@ class ExploreFragment : Fragment() {
     }
 
     private fun addData() {
-        mList.add(Post("1", "Titlu mare", "Salut carei treaba", "nu", "nu", "usr1", Forum("1","FMI", "Blabla", R.drawable.google_logo,"1")))
-        mList.add(Post("2", "Examen", "jambala", "nu", "nu", "usr1", Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
-        mList.add(Post("3", "Intrare", "carolaina", "nu", "nu", "usr1", Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
-        mList.add(Post("4", "Meditatii matematica", "Caut meditator fast", "nu", "nu", "usr1", Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
+        val user = User("dada", "mimi@mail.com", "papa", "1234")
+        mList.add(Post("1", "Titlu mare", "Salut carei treaba", "nu", "nu", user, Forum("1","FMI", "Blabla", R.drawable.google_logo,"1")))
+        mList.add(Post("2", "Examen", "jambala", "nu", "nu", user, Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
+        mList.add(Post("3", "Intrare", "carolaina", "nu", "nu", user, Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
+        mList.add(Post("4", "Meditatii matematica", "Caut meditator fast", "nu", "nu", user, Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
 
     }
 

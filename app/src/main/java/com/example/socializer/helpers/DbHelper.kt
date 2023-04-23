@@ -16,7 +16,7 @@ import com.google.firebase.storage.StorageReference
 private lateinit var database : DatabaseReference
 private lateinit var storageRef : StorageReference
 
-fun saveNewAccount(email : String?, username : String?, imageUri: String?, ctx: Context) {
+fun saveNewAccount(email : String?, username : String, imageUri: String?) {
     val userId =  FirebaseAuth.getInstance().currentUser!!.uid
     val newUser = User(username, email, "New to Socializer", imageUri, false)
     database = Firebase.database.reference

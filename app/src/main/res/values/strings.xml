@@ -30,5 +30,7 @@
     <string name="forum">Forum</string>
     <string name="share">Share</string>
     <string name="now">now</string>
+    <string name="this_is_the_last_message">This is the last message</string>
+    <string name="_10_00_am">10:00 AM</string>
 
 </resources>
