@@ -8,15 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.socializer.R
 import com.example.socializer.databinding.ActivityMainBinding
-import com.example.socializer.fragments.ProfileFragment
+import com.example.socializer.fragments.*
+import com.example.socializer.model.Post
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -24,16 +22,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var navController : NavController
     private lateinit var topAppBar : MaterialToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        replaceFragment(HomeFragment())
+
         firebaseAuth = FirebaseAuth.getInstance()
 
         // Set up Top Bar
@@ -45,12 +42,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Set up Bottom Nav
-        val navContainerFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as  NavHostFragment
-        navController = navContainerFragment.navController
-
-        val bottomNavView = findViewById<BottomNavigationView>(R.id.bottomNavView)
-
-        setupWithNavController(bottomNavView, navController)
+        binding.bottomNavView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> replaceFragment(HomeFragment())
+                R.id.explore -> replaceFragment(ExploreFragment())
+                R.id.notifications -> replaceFragment(NotificationsFragment())
+                R.id.chats -> replaceFragment(ChatsFragment())
+            }
+            true
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -59,8 +59,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
+            R.id.add -> startActivity(Intent(this, PostActivity::class.java))
 
             R.id.profile -> replaceFragment(ProfileFragment())
 
@@ -83,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+        fragmentTransaction.replace(R.id.frameLayout, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }

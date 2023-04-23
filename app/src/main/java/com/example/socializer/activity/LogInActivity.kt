@@ -33,6 +33,10 @@ class LogInActivity : AppCompatActivity() {
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
 
+        if (firebaseAuth.currentUser != null) {
+            login()
+        }
+
         // register
         binding.textView.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -65,9 +69,9 @@ class LogInActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this , gso)
 
-        binding.googleText.setOnClickListener {
-            signInGoogle()
-        }
+        binding.googleText.setOnClickListener { signInGoogle() }
+
+        binding.googleIcon.setOnClickListener { signInGoogle() }
     }
 
     private fun signInGoogle(){
@@ -99,7 +103,10 @@ class LogInActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken , null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful){
-                saveNewAccount(account.email, account.displayName, account.photoUrl.toString(), this)
+                account.displayName?.let { it1 ->
+                    saveNewAccount(account.email,
+                        it1, account.photoUrl.toString())
+                }
                 login()
             }else{
                 Toast.makeText(this, it.exception.toString() , Toast.LENGTH_SHORT).show()

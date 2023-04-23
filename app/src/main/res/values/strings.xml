@@ -17,5 +17,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="type_your_username">Type your username</string>
+    <string name="follow">Follow</string>
+    <string name="message">Message</string>
+    <string name="john_doe">john_doe</string>
+    <string name="_0">0</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="this_is_my_profile_bio">This is my profile bio.</string>
+    <string name="next">Next</string>
+    <string name="select_a_forum_for_your_post">Select a forum for your post</string>
+    <string name="search_forum">Search forum</string>
+    <string name="forum">Forum</string>
+    <string name="share">Share</string>
+    <string name="now">now</string>
+    <string name="this_is_the_last_message">This is the last message</string>
+    <string name="_10_00_am">10:00 AM</string>
 
 </resources>

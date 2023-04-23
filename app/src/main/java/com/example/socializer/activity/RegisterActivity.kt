@@ -38,7 +38,7 @@ class RegisterActivity : AppCompatActivity() {
                     firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
 
-                            saveNewAccount(email, username, DEFAULT_PROFILE_IMAGE, this)
+                            saveNewAccount(email, username, DEFAULT_PROFILE_IMAGE)
                             val intent = Intent(this, LogInActivity::class.java)
                             startActivity(intent);
                         } else {
