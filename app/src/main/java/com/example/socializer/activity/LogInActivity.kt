@@ -69,9 +69,9 @@ class LogInActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this , gso)
 
-        binding.googleText.setOnClickListener {
-            signInGoogle()
-        }
+        binding.googleText.setOnClickListener { signInGoogle() }
+
+        binding.googleIcon.setOnClickListener { signInGoogle() }
     }
 
     private fun signInGoogle(){

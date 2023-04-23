@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import com.example.socializer.R
 import com.example.socializer.databinding.ActivityMainBinding
 import com.example.socializer.fragments.*
+import com.example.socializer.model.Post
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.appbar.MaterialToolbar
@@ -21,15 +22,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var navController : NavController
     private lateinit var topAppBar : MaterialToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        replaceFragment(HomeFragment())
+
         firebaseAuth = FirebaseAuth.getInstance()
 
         // Set up Top Bar
@@ -62,6 +63,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
+            R.id.add -> startActivity(Intent(this, PostActivity::class.java))
+
             R.id.profile -> replaceFragment(ProfileFragment())
 
             R.id.logout -> {
@@ -84,6 +87,7 @@ class MainActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frameLayout, fragment)
+        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 }

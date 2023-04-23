@@ -24,5 +24,11 @@
     <string name="followers">Followers</string>
     <string name="following">Following</string>
     <string name="this_is_my_profile_bio">This is my profile bio.</string>
+    <string name="next">Next</string>
+    <string name="select_a_forum_for_your_post">Select a forum for your post</string>
+    <string name="search_forum">Search forum</string>
+    <string name="forum">Forum</string>
+    <string name="share">Share</string>
+    <string name="now">now</string>
 
 </resources>
