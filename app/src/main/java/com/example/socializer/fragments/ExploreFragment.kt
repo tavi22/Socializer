@@ -1,6 +1,7 @@
 package com.example.socializer.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,9 @@ import com.example.socializer.adapter.PostForumAdapter
 import com.example.socializer.model.Forum
 import com.example.socializer.model.Post
 import com.example.socializer.model.User
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -34,6 +38,8 @@ class ExploreFragment : Fragment() {
     private var param2: String? = null
     private var mList = ArrayList<Post>()
     private lateinit var adapter : PostFeedAdapter
+    private lateinit var database : DatabaseReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +88,7 @@ class ExploreFragment : Fragment() {
         if (query != null) {
             val filteredList = ArrayList<Post>()
             for (i in mList) {
-                if (i.title.lowercase(Locale.ROOT).contains(query) || i.description.lowercase(Locale.ROOT).contains(query)) {
+                if (i.title?.lowercase(Locale.ROOT)?.contains(query) == true || i.description?.lowercase(Locale.ROOT)?.contains(query) == true) {
                     filteredList.add(i)
                 }
             }
@@ -96,12 +102,14 @@ class ExploreFragment : Fragment() {
     }
 
     private fun addData() {
-        val user = User("dada", "mimi@mail.com", "papa", "1234")
-        mList.add(Post("1", "Titlu mare", "Salut carei treaba", "nu", "nu", user, Forum("1","FMI", "Blabla", R.drawable.google_logo,"1")))
-        mList.add(Post("2", "Examen", "jambala", "nu", "nu", user, Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
-        mList.add(Post("3", "Intrare", "carolaina", "nu", "nu", user, Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
-        mList.add(Post("4", "Meditatii matematica", "Caut meditator fast", "nu", "nu", user, Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
+        database = Firebase.database.reference.child("forums")
 
+        database.get().addOnSuccessListener {
+            for (forumSnapshot in it.children) {
+                val forum = forumSnapshot.getValue(Forum::class.java)
+
+            }
+        }
     }
 
     companion object {

@@ -39,8 +39,8 @@ class PostFeedAdapter (var mList : List<Post>) : RecyclerView.Adapter<PostFeedAd
         holder.title.text = mList[position].title
         holder.img.setImageURI(mList[position].imageUri?.toUri())
         holder.content.text = mList[position].description
-        holder.logo.setImageResource(mList[position].forum.logo)
-        holder.forumName.text = mList[position].forum.title
+//        holder.logo.setImageURI(mList[position].forum)
+//        holder.forumName.text = mList[position].forum.title
     }
 
 

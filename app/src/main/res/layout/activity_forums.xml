@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SelectForumActivity">
+    tools:context=".activity.ForumsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,39 +17,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/baseline_arrow_back_24"
-            app:tint="@color/grey" />
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/baseline_arrow_back_24"
+                app:tint="@color/grey" />
 
-        <TextView
-            android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="10dp"
-            android:text="@string/select_a_forum_for_your_post"
-            android:textColor="@color/grey"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="10dp"
+                android:text="Your forums"
+                android:textColor="@color/grey"
+                android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/post_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/baseline_add_24"
-            app:tint="@color/red_theme"
-            android:layout_marginEnd="15dp"/>
+            <ImageView
+                android:id="@+id/add_forum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/baseline_add_24"
+                app:tint="@color/red_theme"
+                android:layout_marginEnd="15dp"/>
 
-    </RelativeLayout>
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.card.MaterialCardView

@@ -1,11 +1,11 @@
 package com.example.socializer.model
 
+import java.text.SimpleDateFormat
 import java.util.*
 
-data class Forum (var id : String,
-                  var title : String,
+data class Forum (var title : String? = null,
                   var description : String? = null,
-                  var logo : Int,
-                  var owner : String,
+                  var logo : String? = null,
+                  var owner : String? = null,
                   var members : List<String>? = emptyList(),
-                  var creationDate : Calendar? = Calendar.getInstance())
+                  var creationDate : String? = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'").format(Date()))
