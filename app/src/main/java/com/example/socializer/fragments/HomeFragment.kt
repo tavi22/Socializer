@@ -58,11 +58,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun addData() {
-        val user = User("dada", "mimi@mail.com", "papa", "1234")
-        mList.add(Post("1", "Titlu mare", "Salut carei treaba", "nu", "nu", user, Forum("1","FMI", "Blabla", R.drawable.google_logo,"1")))
-        mList.add(Post("2", "Examen", "jambala", "nu", "nu", user, Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
-        mList.add(Post("3", "Intrare", "carolaina", "nu", "nu", user, Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
-        mList.add(Post("4", "Meditatii matematica", "Caut meditator fast", "nu", "nu", user, Forum("1","FMI", "Blabla",R.drawable.google_logo,"1")))
 
     }
 

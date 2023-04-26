@@ -11,6 +11,7 @@ import com.example.socializer.R
 import com.example.socializer.model.Chat
 import com.example.socializer.model.Chatlist
 import com.example.socializer.model.Forum
+import com.squareup.picasso.Picasso
 
 class ChatlistAdapter (var mList : List<Chatlist>) : RecyclerView.Adapter<ChatlistAdapter.ChatlistViewHolder>() {
     inner class ChatlistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,7 +36,7 @@ class ChatlistAdapter (var mList : List<Chatlist>) : RecyclerView.Adapter<Chatli
     }
 
     override fun onBindViewHolder(holder: ChatlistViewHolder, position: Int) {
-        holder.image.setImageURI(mList[position].responder.imageuri?.toUri())
+        Picasso.get().load(mList[position].responder.imageuri!!).into(holder.image)
         holder.username.text = mList[position].responder.username
         holder.lastMessage.text = mList[position].messages?.last()?.message
         holder.timestamp.text = mList[position].messages?.last()?.timestamp.toString()

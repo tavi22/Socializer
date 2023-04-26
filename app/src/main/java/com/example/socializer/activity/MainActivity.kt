@@ -36,10 +36,7 @@ class MainActivity : AppCompatActivity() {
         // Set up Top Bar
         topAppBar = findViewById(R.id.top_bar)
         setSupportActionBar(topAppBar)
-        topAppBar.setNavigationOnClickListener {
-            // to do!!
-            Toast.makeText(this, "Pressed button", Toast.LENGTH_SHORT).show()
-        }
+        topAppBar.setNavigationOnClickListener { startActivity(Intent(this, ForumsActivity::class.java)) }
 
         // Set up Bottom Nav
         binding.bottomNavView.setOnItemSelectedListener { item ->

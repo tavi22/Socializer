@@ -5,9 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.socializer.R
 import com.example.socializer.model.Forum
+import com.squareup.picasso.Picasso
 
 class ForumAdapter (var mList : List<Forum>) : RecyclerView.Adapter<ForumAdapter.ForumViewHolder>() {
     inner class ForumViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
@@ -30,7 +33,7 @@ class ForumAdapter (var mList : List<Forum>) : RecyclerView.Adapter<ForumAdapter
     }
 
     override fun onBindViewHolder(holder: ForumViewHolder, position: Int) {
-        holder.logo.setImageResource(mList[position].logo)
+        Picasso.get().load(mList[position].logo!!).into(holder.logo)
         holder.title.text = mList[position].title
     }
 }

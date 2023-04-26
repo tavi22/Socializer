@@ -15,6 +15,12 @@
         android:theme="@style/Theme.Socializer"
         tools:targetApi="31">
         <activity
+            android:name=".activity.AddForumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ForumsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.SelectForumActivity"
             android:exported="false" />
         <activity
