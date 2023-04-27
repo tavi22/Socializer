@@ -1,7 +1,6 @@
 package com.example.socializer.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.socializer.R
 import com.example.socializer.adapter.PostFeedAdapter
-import com.example.socializer.adapter.PostForumAdapter
-import com.example.socializer.model.Forum
 import com.example.socializer.model.Post
-import com.example.socializer.model.User
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
@@ -61,12 +59,9 @@ class ExploreFragment : Fragment() {
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
-
-        addData()
-
-        adapter = PostFeedAdapter(mList)
-        recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+
+        addData(recyclerView)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -101,15 +96,28 @@ class ExploreFragment : Fragment() {
         }
     }
 
-    private fun addData() {
-        database = Firebase.database.reference.child("forums")
+    private fun addData(recyclerView : RecyclerView) {
+        database = Firebase.database.reference.child("posts")
 
-        database.get().addOnSuccessListener {
-            for (forumSnapshot in it.children) {
-                val forum = forumSnapshot.getValue(Forum::class.java)
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (postSnapshot in snapshot.children) {
+                        val post = postSnapshot.getValue(Post::class.java)
+                        mList.add(post!!)
+                    }
+                }
 
+                adapter = PostFeedAdapter(mList)
+                recyclerView.adapter = adapter
             }
-        }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
     }
 
     companion object {

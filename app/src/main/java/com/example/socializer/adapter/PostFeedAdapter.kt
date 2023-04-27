@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.socializer.R
 import com.example.socializer.model.Forum
 import com.example.socializer.model.Post
+import com.squareup.picasso.Picasso
 
 class PostFeedAdapter (var mList : List<Post>) : RecyclerView.Adapter<PostFeedAdapter.PostViewHolder>() {
     inner class PostViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
@@ -37,7 +38,7 @@ class PostFeedAdapter (var mList : List<Post>) : RecyclerView.Adapter<PostFeedAd
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.title.text = mList[position].title
-        holder.img.setImageURI(mList[position].imageUri?.toUri())
+        Picasso.get().load(mList[position].imageUri!!).into(holder.img)
         holder.content.text = mList[position].description
 //        holder.logo.setImageURI(mList[position].forum)
 //        holder.forumName.text = mList[position].forum.title

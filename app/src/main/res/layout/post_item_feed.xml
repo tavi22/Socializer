@@ -69,7 +69,7 @@
     <ImageView
         android:id="@+id/feed_post_image_optional"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
@@ -104,19 +104,20 @@
             android:layout_height="wrap_content"
             android:background="@drawable/baseline_thumb_down_alt_24" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/baseline_insert_comment_24"
+            android:layout_marginStart="30dp"/>
+
         <TextView
             android:id="@+id/feed_comments_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_0"
             android:textSize="16sp"
-            android:layout_marginStart="20dp" />
+            android:layout_marginStart="10dp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/baseline_insert_comment_24"
-            android:layout_marginStart="10dp"/>
 
         <LinearLayout
             android:layout_height="match_parent"

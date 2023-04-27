@@ -13,6 +13,9 @@ import com.example.socializer.model.Forum
 import com.squareup.picasso.Picasso
 
 class ForumAdapter (var mList : List<Forum>) : RecyclerView.Adapter<ForumAdapter.ForumViewHolder>() {
+
+    var onItemClick : ((Forum) -> Unit)? = null
+
     inner class ForumViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val logo : ImageView = itemView.findViewById(R.id.forumLogo)
         val title : TextView = itemView.findViewById(R.id.forumTitle)
@@ -35,5 +38,9 @@ class ForumAdapter (var mList : List<Forum>) : RecyclerView.Adapter<ForumAdapter
     override fun onBindViewHolder(holder: ForumViewHolder, position: Int) {
         Picasso.get().load(mList[position].logo!!).into(holder.logo)
         holder.title.text = mList[position].title
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(mList[position])
+        }
     }
 }

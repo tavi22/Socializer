@@ -2,12 +2,16 @@ package com.example.socializer.helpers
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.core.net.toUri
+import com.example.socializer.activity.MainActivity
+import com.example.socializer.model.Forum
+import com.example.socializer.model.Post
 import com.example.socializer.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -46,14 +50,19 @@ fun uploadProfilePicture(photoUrl: Uri?, email: String?, ctx : Context) {
     }
 }
 
-fun uploadForumLogo(photoUrl: Uri?, forumId : String, ctx : Context): String {
-    var downloadUrl = photoUrl.toString()
-    storageRef = FirebaseStorage.getInstance().getReference("forum-logos/$forumId")
+fun uploadForumLogo(title : String?, description : String?, photoUrl: Uri?, owner : String?, ctx : Context) {
+    database = Firebase.database.reference.child("forums")
+
+    val id = database.push().key!!
+
+    storageRef = FirebaseStorage.getInstance().getReference("forum-logos/$id")
     if (photoUrl != null) {
         storageRef.putFile(photoUrl).addOnCompleteListener {
             if (it.isSuccessful) {
                 storageRef.downloadUrl.addOnSuccessListener { uri ->
-                    downloadUrl = uri.toString()
+                    val forum = Forum(title, description, uri.toString(), owner, arrayListOf(owner!!))
+
+                    database.child(id).setValue(forum)
                     Toast.makeText(ctx, "Forum logo uploaded sucessfully", Toast.LENGTH_SHORT).show()
 
                 }
@@ -62,17 +71,19 @@ fun uploadForumLogo(photoUrl: Uri?, forumId : String, ctx : Context): String {
             }
         }
     }
-    return downloadUrl
 }
 
-fun uploadPostPhoto(photoUrl: String?, postId : String, ctx : Context): String {
-    var downloadUrl = photoUrl.toString()
-    storageRef = FirebaseStorage.getInstance().getReference("post-images/$postId")
+fun uploadPostPhoto(title : String?, body : String?, videoUrl : String?, photoUrl: String?, owner : String?, ctx : Context) {
+    database = Firebase.database.reference.child("posts")
+    val id = database.push().key!!
+
+    storageRef = FirebaseStorage.getInstance().getReference("post-images/$id")
     if (photoUrl != null) {
         storageRef.putFile(photoUrl.toUri()).addOnCompleteListener {
             if (it.isSuccessful) {
                 storageRef.downloadUrl.addOnSuccessListener { uri ->
-                    downloadUrl = uri.toString()
+                    val post = Post(title, body, uri.toString(), videoUrl, owner, "dada")
+                    database.child(id).setValue(post)
                     Toast.makeText(ctx, "Post image uploaded sucessfully", Toast.LENGTH_SHORT).show()
 
                 }
@@ -81,5 +92,4 @@ fun uploadPostPhoto(photoUrl: String?, postId : String, ctx : Context): String {
             }
         }
     }
-    return downloadUrl
 }

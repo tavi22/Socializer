@@ -26,7 +26,6 @@ class SelectForumActivity : AppCompatActivity() {
     private lateinit var add : ImageView
     private var mList = ArrayList<Forum>()
     private lateinit var adapter: ForumAdapter
-    private lateinit var forum : String
     private lateinit var database : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,16 +64,10 @@ class SelectForumActivity : AppCompatActivity() {
         val title : String = intent.getStringExtra("title").toString()
         val body : String = intent.getStringExtra("body").toString()
         val vid : String = intent.getStringExtra("vid").toString()
+        val uri : String = intent.getStringExtra("img").toString()
         val owner = FirebaseAuth.getInstance().currentUser!!.uid
 
-        database = Firebase.database.reference.child("posts")
-        val id = database.push().key!!
-
-        val img =  uploadPostPhoto(intent.getStringExtra("img").toString(), id, this)
-
-        val post = Post(title, body, img, vid, owner, forum)
-
-        database.child(id).setValue(post)
+        uploadPostPhoto(title, body, vid, uri, owner, this)
 
         startActivity(Intent(this, MainActivity::class.java))
     }

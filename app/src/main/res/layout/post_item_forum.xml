@@ -59,16 +59,17 @@
         android:text="This is the post content" />
 
     <!-- Post Image (Optional) -->
+
+    <!-- Post Upvote and Downvote Buttons -->
     <ImageView
         android:id="@+id/post_image_optional"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_background" />
 
-    <!-- Post Upvote and Downvote Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,10 +87,10 @@
             android:id="@+id/post_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
+            android:textColor="@color/grey"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:text="0" />
+            android:text="@string/_0" />
 
         <ImageView
             android:id="@+id/downvote"
@@ -97,19 +98,20 @@
             android:layout_height="wrap_content"
             android:background="@drawable/baseline_thumb_down_alt_24" />
 
+        <ImageView
+            android:id="@+id/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/baseline_insert_comment_24"
+            android:layout_marginStart="30dp"/>
+
         <TextView
-            android:id="@+id/feed_comments_number"
+            android:id="@+id/comments_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_0"
             android:textSize="16sp"
-            android:layout_marginStart="20dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/baseline_insert_comment_24"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp" />
 
         <LinearLayout
             android:layout_height="match_parent"
