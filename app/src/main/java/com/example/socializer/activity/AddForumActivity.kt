@@ -41,9 +41,8 @@ class AddForumActivity : AppCompatActivity() {
     private fun newForum() {
         val title = binding.forumTitle.text.toString()
         val description = binding.forumDescription.text.toString()
-        val owner = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
-        uploadForumLogo(title, description, imageUri, owner, this)
+        uploadForumLogo(title, description, imageUri, this)
 
         startActivity(Intent(this, MainActivity::class.java))
     }

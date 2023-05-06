@@ -143,13 +143,9 @@
         android:padding="16dp" />
 
     <!-- Profile posts -->
-    <GridView
-        android:id="@+id/posts_grid"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="3"
-        android:padding="8dp"
-        android:horizontalSpacing="8dp"
-        android:verticalSpacing="8dp" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -5,7 +5,8 @@ import android.os.Parcelable
 import java.text.SimpleDateFormat
 import java.util.*
 
-data class Forum (var title : String? = null,
+data class Forum (var id : String? = null,
+                  var title : String? = null,
                   var description : String? = null,
                   var logo : String? = null,
                   var owner : String? = null,
@@ -16,12 +17,14 @@ data class Forum (var title : String? = null,
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
         parcel.createStringArrayList(),
         parcel.readString()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
         parcel.writeString(title)
         parcel.writeString(description)
         parcel.writeString(logo)

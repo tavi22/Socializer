@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -11,12 +12,21 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide
 import com.example.socializer.R
+import com.example.socializer.adapter.PostFeedAdapter
 import com.example.socializer.databinding.ActivityMainBinding
+import com.example.socializer.model.Post
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import java.util.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +44,9 @@ class ProfileFragment : Fragment() {
     private var param2: String? = null
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var dbRef : DatabaseReference
+    private var mList = ArrayList<Post>()
+    private lateinit var adapter : PostFeedAdapter
+    private lateinit var postCount : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +66,8 @@ class ProfileFragment : Fragment() {
         val username = view.findViewById<TextView>(R.id.username)
         val profilePicure = view.findViewById<ImageView>(R.id.profile_picture)
         val descpription = view.findViewById<TextView>(R.id.bio)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        postCount = view.findViewById(R.id.posts_count)
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
@@ -66,9 +81,40 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        addData(recyclerView)
+
         return view
 
     }
+
+        private fun addData(recyclerView: RecyclerView) {
+            dbRef = Firebase.database.reference.child("posts")
+
+            dbRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        for (postSnapshot in snapshot.children) {
+                            val post = postSnapshot.getValue(Post::class.java)
+                            if (post!!.owner == FirebaseAuth.getInstance().currentUser!!.uid) {
+                                mList.add(post)
+                            }
+                        }
+                        postCount.text = mList.size.toString()
+                    }
+
+                    adapter = PostFeedAdapter(mList)
+                    recyclerView.adapter = adapter
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+        }
 
     companion object {
         /**

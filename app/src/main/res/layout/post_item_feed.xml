@@ -87,7 +87,8 @@
             android:id="@+id/feed_upvote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/baseline_thumb_up_alt_24" />
+            android:background="@drawable/baseline_thumb_up_alt_24"
+            />
 
         <TextView
             android:id="@+id/feed_post_score"
@@ -105,6 +106,7 @@
             android:background="@drawable/baseline_thumb_down_alt_24" />
 
         <ImageView
+            android:id="@+id/feed_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/baseline_insert_comment_24"
@@ -125,12 +127,14 @@
             android:id="@+id/share">
 
             <ImageView
+                android:id="@+id/feed_share_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/baseline_ios_share_24"
                 android:layout_marginStart="30dp"/>
 
             <TextView
+                android:id="@+id/feed_share_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/share"
