@@ -56,10 +56,10 @@ class PostActivity : AppCompatActivity() {
 
     private fun goNext() {
         val intent = Intent(this, SelectForumActivity::class.java)
-        intent.putExtra("img", imageUri)
+        intent.putExtra("img", imageUri.toString())
         intent.putExtra("title", binding.title.text.toString())
         intent.putExtra("body", binding.body.text.toString())
-        intent.putExtra("vid", videoUri)
+        intent.putExtra("vid", videoUri.toString())
         startActivity(intent)
     }
 }

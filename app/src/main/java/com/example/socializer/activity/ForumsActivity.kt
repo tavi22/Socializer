@@ -40,7 +40,6 @@ class ForumsActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
         addDataToList()
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -88,6 +87,11 @@ class ForumsActivity : AppCompatActivity() {
 
                 adapter = ForumAdapter(mList)
                 recyclerView.adapter = adapter
+                adapter.onItemClick = {
+                    val intent = Intent(applicationContext, ForumDetailsActivity::class.java)
+                    intent.putExtra("name", it)
+                    startActivity(intent)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
