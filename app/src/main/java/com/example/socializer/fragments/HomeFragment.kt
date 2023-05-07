@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
 
         addData()
 
-        val adapter = PostFeedAdapter(mList)
+        val adapter = PostFeedAdapter(mList, context!!)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         return view

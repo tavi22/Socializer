@@ -1,6 +1,7 @@
 package com.example.socializer.activity
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -32,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(HomeFragment())
 
         firebaseAuth = FirebaseAuth.getInstance()
-
         // Set up Top Bar
         topAppBar = findViewById(R.id.top_bar)
         setSupportActionBar(topAppBar)
@@ -87,4 +87,5 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
+
 }
