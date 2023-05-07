@@ -105,7 +105,7 @@ class ProfileFragment : Fragment() {
                         postCount.text = mList.size.toString()
                     }
 
-                    adapter = PostFeedAdapter(mList)
+                    adapter = PostFeedAdapter(mList, context!!)
                     recyclerView.adapter = adapter
                 }
 

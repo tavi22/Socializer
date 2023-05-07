@@ -104,7 +104,7 @@ class ExploreFragment : Fragment() {
                     }
                 }
 
-                adapter = PostFeedAdapter(mList)
+                adapter = PostFeedAdapter(mList, context!!)
                 recyclerView.adapter = adapter
 
             }

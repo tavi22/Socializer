@@ -1,15 +1,20 @@
 package com.example.socializer.helpers
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.example.socializer.model.Forum
 import com.example.socializer.model.Post
 import com.example.socializer.model.User
 import com.example.socializer.model.Vote
+import com.google.android.gms.auth.api.signin.GoogleSignIn.requestPermissions
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

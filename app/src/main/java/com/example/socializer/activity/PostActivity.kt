@@ -1,5 +1,6 @@
 package com.example.socializer.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,8 @@ import android.view.View
 import android.widget.MediaController
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.socializer.databinding.ActivityPostBinding
+import com.github.drjacky.imagepicker.ImagePicker
+import com.github.drjacky.imagepicker.constant.ImageProvider
 
 class PostActivity : AppCompatActivity() {
 
@@ -23,7 +26,14 @@ class PostActivity : AppCompatActivity() {
 
         binding.close.setOnClickListener { finish() }
 
-        binding.addPhoto.setOnClickListener { resultLauncher.launch("image/*") }
+        binding.addPhoto.setOnClickListener { resultLauncher.launch(
+                                                                ImagePicker.with(this)
+                                                                    .provider(ImageProvider.BOTH)
+                                                                    .crop()
+                                                                    .cropFreeStyle()
+                                                                    .createIntent()
+                                                                    ) }
+
         binding.addVideo.setOnClickListener {
             videoResultLauncher.launch("video/*")
             val vid = binding.videoPreview
@@ -39,12 +49,17 @@ class PostActivity : AppCompatActivity() {
         binding.next.setOnClickListener { goNext() }
     }
 
-    private val resultLauncher = registerForActivityResult(
-        ActivityResultContracts.GetContent()
-    ) {
-
-        imageUri = it
-        binding.imagePreview.setImageURI(it)
+    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            imageUri = it.data?.data!!
+            binding.imagePreview.setImageURI(imageUri)
+            imageUri?.let { _ ->
+                contentResolver.takePersistableUriPermission(
+                    imageUri!!, Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }
+            //////////////
+        }
     }
 
     private val videoResultLauncher = registerForActivityResult(
