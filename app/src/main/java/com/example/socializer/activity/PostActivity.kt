@@ -1,16 +1,21 @@
 package com.example.socializer.activity
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.MediaController
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.socializer.databinding.ActivityPostBinding
 import com.github.drjacky.imagepicker.ImagePicker
 import com.github.drjacky.imagepicker.constant.ImageProvider
+import com.google.firebase.FirebaseApp
 
 class PostActivity : AppCompatActivity() {
 
@@ -26,13 +31,26 @@ class PostActivity : AppCompatActivity() {
 
         binding.close.setOnClickListener { finish() }
 
-        binding.addPhoto.setOnClickListener { resultLauncher.launch(
-                                                                ImagePicker.with(this)
-                                                                    .provider(ImageProvider.BOTH)
-                                                                    .crop()
-                                                                    .cropFreeStyle()
-                                                                    .createIntent()
-                                                                    ) }
+        binding.addPhoto.setOnClickListener {
+
+            if (ContextCompat.checkSelfPermission(
+                    FirebaseApp.getInstance().applicationContext,
+                    Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+            ) ImagePicker.with(this)
+                    .provider(ImageProvider.BOTH)
+                    .setMultipleAllowed(false)
+                    .crop()
+                    .cropFreeStyle()
+                    .createIntentFromDialog { resultLauncher.launch(it) }
+            else {
+                ActivityCompat.requestPermissions(
+                    this@PostActivity,
+                    arrayOf(
+                        Manifest.permission.CAMERA,
+                    ), 1
+                )
+            }
+        }
 
         binding.addVideo.setOnClickListener {
             videoResultLauncher.launch("video/*")
@@ -53,11 +71,6 @@ class PostActivity : AppCompatActivity() {
         if (it.resultCode == Activity.RESULT_OK) {
             imageUri = it.data?.data!!
             binding.imagePreview.setImageURI(imageUri)
-            imageUri?.let { _ ->
-                contentResolver.takePersistableUriPermission(
-                    imageUri!!, Intent.FLAG_GRANT_READ_URI_PERMISSION
-                )
-            }
             //////////////
         }
     }
