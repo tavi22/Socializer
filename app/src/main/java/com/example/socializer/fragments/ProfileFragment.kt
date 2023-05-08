@@ -1,32 +1,28 @@
 package com.example.socializer.fragments
 
+import android.animation.ObjectAnimator
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridView
+import android.view.animation.LinearInterpolator
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide
 import com.example.socializer.R
 import com.example.socializer.adapter.PostFeedAdapter
-import com.example.socializer.databinding.ActivityMainBinding
 import com.example.socializer.model.Post
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.util.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,6 +43,11 @@ class ProfileFragment : Fragment() {
     private var mList = ArrayList<Post>()
     private lateinit var adapter : PostFeedAdapter
     private lateinit var postCount : TextView
+    private lateinit var messageButton : Button
+    private lateinit var followButton : Button
+    private lateinit var animator1: ObjectAnimator
+    private lateinit var animator2: ObjectAnimator
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +68,8 @@ class ProfileFragment : Fragment() {
         val profilePicure = view.findViewById<ImageView>(R.id.profile_picture)
         val descpription = view.findViewById<TextView>(R.id.bio)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        messageButton = view.findViewById(R.id.message_button)
+        followButton = view.findViewById(R.id.follow_button)
         postCount = view.findViewById(R.id.posts_count)
 
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -85,6 +88,18 @@ class ProfileFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         addData(recyclerView)
+
+        animator1 = ObjectAnimator.ofArgb(this, "color1", Color.BLUE, Color.RED)
+        animator1.duration = 3000
+        animator1.interpolator = LinearInterpolator()
+
+        messageButton.setOnClickListener { animator1.start() }
+
+        animator2 = ObjectAnimator.ofArgb(this, "color2", Color.BLUE, Color.RED)
+        animator2.duration = 3000
+        animator2.interpolator = LinearInterpolator()
+
+        followButton.setOnClickListener { animator2.start() }
 
         return view
 
@@ -114,6 +129,14 @@ class ProfileFragment : Fragment() {
                 }
 
             })
+        }
+
+        public fun setColor1(color : Int) {
+            messageButton.setBackgroundColor(color)
+        }
+
+        public fun setColor2(color : Int) {
+            followButton.setBackgroundColor(color)
         }
 
     companion object {
